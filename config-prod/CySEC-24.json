@@ -1,0 +1,2062 @@
+{
+  "Regulation": "CySEC",
+  "Version": 24,
+  "id": "CySEC-24",
+  "Suitability": {
+    "RiskLevel": {
+      "Operation": "Min",
+      "DefaultRiskLevel": "Medium",
+      "Factors": [
+        {
+          "Name": "A",
+          "Operation": "Min",
+          "Round": 0,
+          "Components": [
+            {
+              "Name": "5",
+              "Operation": "Max",
+              "QuestionAnswers": [
+                {
+                  "Question": "TradingPurpose",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "ShortTermReturns",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "AdditionalRevenues",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "FuturePlanning",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "SavingsForHome",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "PurposeInvestments",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "PurposeTrading",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "PurposeCryptoToFiat",
+                      "RiskLevel": "High"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                }
+              ],
+              "RiskLevelWeight": []
+            },
+            {
+              "Name": "6",
+              "Operation": "Max",
+              "QuestionAnswers": [
+                {
+                  "Question": "RiskAppetite",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "Plus5ToMinus3Percent",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "Plus10ToMinus6Percent",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "Plus20ToMinus12Percent",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "Plus40ToMinus24Percent",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Plus80ToMinus48Percent",
+                      "RiskLevel": "High"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                }
+              ],
+              "RiskLevelWeight": []
+            }
+          ],
+          "RevolvingDoorOrder": 2
+        },
+        {
+          "Name": "B",
+          "Operation": "Avg",
+          "Round": "Down",
+          "Components": [
+            {
+              "Name": "1",
+              "Operation": "Max",
+              "QuestionAnswers": [
+                {
+                  "Question": "Equities",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "NeverTraded",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "ZeroTo10",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "TenTo20",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "Above20",
+                      "RiskLevel": "High"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                },
+                {
+                  "Question": "Crypto",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "NeverTraded",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "ZeroTo10",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "TenTo20",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Above20",
+                      "RiskLevel": "High"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                },
+                {
+                  "Question": "LeveragedCfd",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "NeverTraded",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "ZeroTo10",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "TenTo20",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Above20",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "TenTo40",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Above40",
+                      "RiskLevel": "High"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                }
+              ],
+              "RiskLevelWeight": []
+            },
+            {
+              "Name": "2",
+              "Operation": "Max",
+              "QuestionAnswers": [
+                {
+                  "Question": "EquitiesInvestedAmount",
+                  "IsRequiredForCopy": false,
+                  "Answers": [
+                    {
+                      "Answer": "OneTo500",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "From500To2000",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "Above2000",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "NeverVolume",
+                      "RiskLevel": "Medium"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                },
+                {
+                  "Question": "CryptoInvestedAmount",
+                  "IsRequiredForCopy": false,
+                  "Answers": [
+                    {
+                      "Answer": "OneTo500",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "From500To2000",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Above2000",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "NeverVolume",
+                      "RiskLevel": "Medium"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                },
+                {
+                  "Question": "LeveragedCfdInvestedAmount",
+                  "IsRequiredForCopy": false,
+                  "Answers": [
+                    {
+                      "Answer": "OneTo500",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "From500To2000",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Above2000",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "NeverVolume",
+                      "RiskLevel": "Medium"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                }
+              ],
+              "RiskLevelWeight": []
+            },
+            {
+              "Name": "3",
+              "Operation": "Max",
+              "QuestionAnswers": [
+                {
+                  "Question": "TradingKnowledge",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "ProfessionalCertificate",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "AcademicDegree",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "TradingCourses",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "NoFinancialKnowledge",
+                      "RiskLevel": "Medium"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                }
+              ],
+              "RiskLevelWeight": []
+            },
+            {
+              "Name": "4",
+              "Operation": "Max",
+              "QuestionAnswers": [
+                {
+                  "Question": "TradingStrategy",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "FewSecondsUpTo24",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "FewWeeksUpToSeveralMonth",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "MoreThenSeveralMonths",
+                      "RiskLevel": "Medium"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                }
+              ],
+              "RiskLevelWeight": []
+            },
+            {
+              "Name": "7",
+              "Operation": "Max",
+              "QuestionAnswers": [
+                {
+                  "Question": "IncomeSource",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "Salary",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Investments",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Inheritance",
+                      "RiskLevel": "MediumHigh"
+                    },
+                    {
+                      "Answer": "Pension",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "Savings",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "BusinessActivities",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "Employed",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "FamilyFinancialSupport",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "Other",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "Severance",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "SocialSecurity",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "CryptoRelatedGains",
+                      "RiskLevel": "High"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                }
+              ],
+              "RiskLevelWeight": []
+            },
+            {
+              "Name": "8",
+              "Operation": "Max",
+              "QuestionAnswers": [
+                {
+                  "Question": "TradingKnowledgeAssessment",
+                  "IsRequiredForCopy": false,
+                  "Answers": [
+                    {
+                      "Answer": "Leverage",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "MarginCall",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "Cfd",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "StopLoss",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "NewMarginCall",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "NewLeverage",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "NewCfd",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "NewStopLoss",
+                      "RiskLevel": "Medium"
+                    },
+                    {
+                      "Answer": "NewStopLossGapThrough",
+                      "RiskLevel": "Medium"
+                    }
+                  ],
+                  "WeigthAnswers": [
+                    {
+                      "Answers": [
+                        {
+                          "Answer": "NewerLeverage",
+                          "Score": 2
+                        },
+                        {
+                          "Answer": "NewerCfd",
+                          "Score": -2
+                        },
+                        {
+                          "Answer": "NewerMarginCall",
+                          "Score": 2
+                        },
+                        {
+                          "Answer": "NewerStopLossTrigger",
+                          "Score": -2
+                        },
+                        {
+                          "Answer": "NewerStopLossGapThrough",
+                          "Score": -2
+                        },
+                        {
+                          "Answer": "NewerCfdTrs",
+                          "Score": -2
+                        }
+                      ],
+                      "QuestionScoreToRiskLevelMappings": [
+                        {
+                          "RiskLevel": "High",
+                          "MinTotalScore": 6
+                        },
+                        {
+                          "RiskLevel": "MediumHigh",
+                          "MinTotalScore": 2
+                        },
+                        {
+                          "RiskLevel": "Medium",
+                          "MinTotalScore": -6
+                        },
+                        {
+                          "RiskLevel": "Low",
+                          "MinTotalScore": -100
+                        }
+                      ],
+                      "QuestionScoreToBlockResultMappings": []
+                    }
+                  ]
+                }
+              ],
+              "RiskLevelWeight": []
+            },
+            {
+              "Name": "9",
+              "Operation": "Avg",
+              "DefaultRiskLevel": "Low",
+              "Round": "Down",
+              "QuestionAnswers": [
+                {
+                  "Question": "MiCACryptoAssessmentHighVolatility",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "MiCAMakesStableInvestment",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "MiCACanLeadToSignificantGainLoss",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "MiCAGuaranteesLongTermProfits",
+                      "RiskLevel": "Low"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                },
+                {
+                  "Question": "MiCACryptoAssessmentCyberRisks",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "MiCASamePassword",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "MiCASharePrivateKeysWithFriends",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "MiCAEnableTwoFactorAuth",
+                      "RiskLevel": "High"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                },
+                {
+                  "Question": "MiCACryptoAssessmentRecoverLoss",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "MiCACoversTheRecovery",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "MiCADoesNotCover",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "MiCAGetBackFromConsumerService",
+                      "RiskLevel": "Low"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                },
+                {
+                  "Question": "MiCACryptoAssessmentInvestingRisks",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "MiCARiskIsMinimal",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "MiCARiskLosingInvestments",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "MiCARiskIsLow",
+                      "RiskLevel": "Low"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                },
+                {
+                  "Question": "MiCACryptoAssessmentPrivateKey",
+                  "IsRequiredForCopy": true,
+                  "Answers": [
+                    {
+                      "Answer": "MiCASharedPassword",
+                      "RiskLevel": "Low"
+                    },
+                    {
+                      "Answer": "MiCASecretCode",
+                      "RiskLevel": "High"
+                    },
+                    {
+                      "Answer": "MiCAPublicIdentifier",
+                      "RiskLevel": "Low"
+                    }
+                  ],
+                  "WeigthAnswers": []
+                }
+              ],
+              "RiskLevelWeight": [
+                {
+                  "RiskLevel": "High",
+                  "Weight": 500
+                },
+                {
+                  "RiskLevel": "MediumHigh",
+                  "Weight": 400
+                },
+                {
+                  "RiskLevel": "Medium",
+                  "Weight": 300
+                },
+                {
+                  "RiskLevel": "Low",
+                  "Weight": 200
+                },
+                {
+                  "RiskLevel": "Minimal",
+                  "Weight": 100
+                }
+              ]
+            }
+          ],
+          "RevolvingDoorOrder": 1
+        }
+      ]
+    },
+    "SuitabilityBlock": {
+      "Checks": [
+        {
+          "Condition": "All",
+          "Priority": 1,
+          "Result": "Blocked",
+          "DefaultResult": "NotBlocked",
+          "QuestionAnswerChecks": [
+            {
+              "Condition": "Any",
+              "Question": "RiskAppetite",
+              "Answers": [
+                "Plus5ToMinus3Percent"
+              ],
+              "ExcludeAnswers": [],
+              "IsRequired": true,
+              "TestBlockingConditions": []
+            },
+            {
+              "Condition": "Any",
+              "Question": "TradingPurpose",
+              "Answers": [
+                "FuturePlanning",
+                "SavingsForHome"
+              ],
+              "ExcludeAnswers": [],
+              "IsRequired": true,
+              "TestBlockingConditions": []
+            },
+            {
+              "Condition": "Any",
+              "Question": "AnnualIncome",
+              "Answers": [
+                "UpTo10K",
+                "Between10KAnd50K",
+                "Between50KAnd200K"
+              ],
+              "ExcludeAnswers": [],
+              "IsRequired": true,
+              "TestBlockingConditions": []
+            },
+            {
+              "Condition": "Any",
+              "Question": "LiquidAssets",
+              "Answers": [
+                "UpTo10K",
+                "Between10KAnd50K",
+                "Between50KAnd200K"
+              ],
+              "ExcludeAnswers": [],
+              "IsRequired": true,
+              "TestBlockingConditions": []
+            }
+          ],
+          "NestedChecks": [],
+          "MinCount": 1,
+          "IsAlternative": false
+        }
+      ],
+      "DefaultResult": "NotBlocked"
+    },
+    "RiskLevelToScoreMappings": [
+      {
+        "RiskLevel": "Minimal",
+        "AuthorizedRiskScore": 3
+      },
+      {
+        "RiskLevel": "Low",
+        "AuthorizedRiskScore": 3
+      },
+      {
+        "RiskLevel": "Medium",
+        "AuthorizedRiskScore": 6
+      },
+      {
+        "RiskLevel": "MediumHigh",
+        "AuthorizedRiskScore": 8
+      },
+      {
+        "RiskLevel": "High",
+        "AuthorizedRiskScore": 10
+      }
+    ],
+    "RiskLevelWeight": [
+      {
+        "RiskLevel": "High",
+        "Weight": 4
+      },
+      {
+        "RiskLevel": "MediumHigh",
+        "Weight": 3
+      },
+      {
+        "RiskLevel": "Medium",
+        "Weight": 2
+      },
+      {
+        "RiskLevel": "Low",
+        "Weight": 1
+      },
+      {
+        "RiskLevel": "Minimal",
+        "Weight": 0
+      }
+    ]
+  },
+  "CfdNegativeMarket": {
+    "DefaultResult": "Blocked",
+    "CoolingOffPeriodDuration": "00:00:00",
+    "Rules": [
+      {
+        "Name": "KnockOut",
+        "HasAutoRelease": false,
+        "Checks": [
+          {
+            "Condition": "Any",
+            "Priority": 1,
+            "Result": "Blocked",
+            "DefaultResult": "Blocked",
+            "QuestionAnswerChecks": [
+              {
+                "Condition": "Any",
+                "Question": "RiskAppetite",
+                "Answers": [
+                  "Plus5ToMinus3Percent"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": [
+                  {
+                    "MinAttemptNumber": 2,
+                    "TimeBetweenAttempts": "1.00:00:00",
+                    "IgnoreOnCheckResult": []
+                  }
+                ]
+              },
+              {
+                "Condition": "Any",
+                "Question": "AnnualIncome",
+                "Answers": [
+                  "UpTo10K"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": [
+                  {
+                    "MinAttemptNumber": 2,
+                    "TimeBetweenAttempts": "1.00:00:00",
+                    "IgnoreOnCheckResult": []
+                  }
+                ]
+              }
+            ],
+            "NestedChecks": [],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "Blocked",
+        "TestBlockingConditions": []
+      },
+      {
+        "Name": "TradingExperience",
+        "HasAutoRelease": true,
+        "AutoReleaseCondition": {
+          "DaysFromFtd": 60,
+          "AmountOfClosedTradingPosition": 20
+        },
+        "Checks": [
+          {
+            "Condition": "All",
+            "Priority": 1,
+            "Result": "Blocked",
+            "DefaultResult": "Blocked",
+            "QuestionAnswerChecks": [],
+            "NestedChecks": [
+              {
+                "Condition": "All",
+                "Priority": 0,
+                "Result": "Blocked",
+                "DefaultResult": "Blocked",
+                "QuestionAnswerChecks": [
+                  {
+                    "Condition": "Any",
+                    "Question": "Crypto",
+                    "Answers": [
+                      "NeverTraded"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  },
+                  {
+                    "Condition": "Any",
+                    "Question": "LeveragedCfd",
+                    "Answers": [
+                      "NeverTraded"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  },
+                  {
+                    "Condition": "Any",
+                    "Question": "TradingKnowledge",
+                    "Answers": [
+                      "NoFinancialKnowledge"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  }
+                ],
+                "NestedChecks": [],
+                "MinCount": 1,
+                "IsAlternative": false
+              },
+              {
+                "Condition": "Any",
+                "Priority": 0,
+                "Result": "NotBlocked",
+                "DefaultResult": "Blocked",
+                "QuestionAnswerChecks": [],
+                "NestedChecks": [
+                  {
+                    "Condition": "All",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "Any",
+                        "Question": "TradingKnowledgeAssessment",
+                        "Answers": [
+                          "Leverage",
+                          "MarginCall",
+                          "StopLoss",
+                          "NewMarginCall",
+                          "NewCfd",
+                          "NewStopLoss",
+                          "NewStopLossGapThrough"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "ScoreAnswers": {
+                          "Answers": [
+                            {
+                              "Answer": "NewerLeverage",
+                              "Score": 2
+                            },
+                            {
+                              "Answer": "NewerCfd",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerMarginCall",
+                              "Score": 2
+                            },
+                            {
+                              "Answer": "NewerStopLossTrigger",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerStopLossGapThrough",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerCfdTrs",
+                              "Score": -2
+                            }
+                          ],
+                          "QuestionScoreToRiskLevelMappings": [],
+                          "QuestionScoreToBlockResultMappings": [
+                            {
+                              "BlockResult": "Blocked",
+                              "MinTotalScore": -100
+                            },
+                            {
+                              "BlockResult": "NotBlocked",
+                              "MinTotalScore": -3
+                            }
+                          ]
+                        },
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 1,
+                    "IsAlternative": false
+                  },
+                  {
+                    "Condition": "LessThan",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentStopLossOrderCanceled",
+                        "Answers": [
+                          "StopLossCanBeCancelled"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentStopLossOrderGuarantee",
+                        "Answers": [
+                          "StopLossCanHaveSlippage"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentFailsMarginCall",
+                        "Answers": [
+                          "CfdAssessmentClosePositionsForMargin"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentLeverageDerivative",
+                        "Answers": [
+                          "LeverageAmplifiesGainsAndLosses"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentLeverageRisk",
+                        "Answers": [
+                          "RiskOfLosingMoreThanTheInitialInvestment"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 3,
+                    "IsAlternative": false
+                  },
+                  {
+                    "Condition": "LessThan",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentSpread",
+                        "Answers": [
+                          "CfdAssessmentBidAskDifference"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentMainRiskLeveragedCfd",
+                        "Answers": [
+                          "CfdAssessmentAmplifiedLossesLeverage"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentFactorsPlacementStopLossOrder",
+                        "Answers": [
+                          "CfdAssessmentVolatilityRiskStrategy"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentPurposeStopLossLeveragedDerivative",
+                        "Answers": [
+                          "CfdAssessmentLimitLosses"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentMarginCallProfitableTrade",
+                        "Answers": [
+                          "CfdAssessmentBalanceBelowMargin"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 3,
+                    "IsAlternative": false
+                  }
+                ],
+                "MinCount": 1,
+                "IsAlternative": true
+              }
+            ],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "Blocked",
+        "TestBlockingConditions": []
+      }
+    ]
+  },
+  "FuturesNegativeMarket": {
+    "DefaultResult": "Blocked",
+    "CoolingOffPeriodDuration": "00:00:00",
+    "Rules": [
+      {
+        "Name": "KnockOut",
+        "HasAutoRelease": false,
+        "Checks": [
+          {
+            "Condition": "Any",
+            "Priority": 1,
+            "Result": "Blocked",
+            "DefaultResult": "Blocked",
+            "QuestionAnswerChecks": [
+              {
+                "Condition": "Any",
+                "Question": "RiskAppetite",
+                "Answers": [
+                  "Plus5ToMinus3Percent"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": [
+                  {
+                    "MinAttemptNumber": 2,
+                    "TimeBetweenAttempts": "1.00:00:00",
+                    "IgnoreOnCheckResult": []
+                  }
+                ]
+              },
+              {
+                "Condition": "Any",
+                "Question": "AnnualIncome",
+                "Answers": [
+                  "UpTo10K"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": [
+                  {
+                    "MinAttemptNumber": 2,
+                    "TimeBetweenAttempts": "1.00:00:00",
+                    "IgnoreOnCheckResult": []
+                  }
+                ]
+              }
+            ],
+            "NestedChecks": [],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "Blocked",
+        "TestBlockingConditions": []
+      },
+      {
+        "Name": "TradingExperience",
+        "HasAutoRelease": true,
+        "AutoReleaseCondition": {
+          "DaysFromFtd": 60,
+          "AmountOfClosedTradingPosition": 20
+        },
+        "Checks": [
+          {
+            "Condition": "All",
+            "Priority": 1,
+            "Result": "Blocked",
+            "DefaultResult": "Blocked",
+            "QuestionAnswerChecks": [],
+            "NestedChecks": [
+              {
+                "Condition": "All",
+                "Priority": 0,
+                "Result": "Blocked",
+                "DefaultResult": "Blocked",
+                "QuestionAnswerChecks": [
+                  {
+                    "Condition": "Any",
+                    "Question": "Crypto",
+                    "Answers": [
+                      "NeverTraded"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  },
+                  {
+                    "Condition": "Any",
+                    "Question": "LeveragedCfd",
+                    "Answers": [
+                      "NeverTraded"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  },
+                  {
+                    "Condition": "Any",
+                    "Question": "TradingKnowledge",
+                    "Answers": [
+                      "NoFinancialKnowledge"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  }
+                ],
+                "NestedChecks": [],
+                "MinCount": 1,
+                "IsAlternative": false
+              },
+              {
+                "Condition": "Any",
+                "Priority": 0,
+                "Result": "NotBlocked",
+                "DefaultResult": "Blocked",
+                "QuestionAnswerChecks": [],
+                "NestedChecks": [
+                  {
+                    "Condition": "All",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "Any",
+                        "Question": "TradingKnowledgeAssessment",
+                        "Answers": [
+                          "Leverage",
+                          "MarginCall",
+                          "StopLoss",
+                          "NewMarginCall",
+                          "NewCfd",
+                          "NewStopLoss",
+                          "NewStopLossGapThrough"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "ScoreAnswers": {
+                          "Answers": [
+                            {
+                              "Answer": "NewerLeverage",
+                              "Score": 2
+                            },
+                            {
+                              "Answer": "NewerCfd",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerMarginCall",
+                              "Score": 2
+                            },
+                            {
+                              "Answer": "NewerStopLossTrigger",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerStopLossGapThrough",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerCfdTrs",
+                              "Score": -2
+                            }
+                          ],
+                          "QuestionScoreToRiskLevelMappings": [],
+                          "QuestionScoreToBlockResultMappings": [
+                            {
+                              "BlockResult": "Blocked",
+                              "MinTotalScore": -100
+                            },
+                            {
+                              "BlockResult": "NotBlocked",
+                              "MinTotalScore": -3
+                            }
+                          ]
+                        },
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 1,
+                    "IsAlternative": false
+                  },
+                  {
+                    "Condition": "LessThan",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentStopLossOrderCanceled",
+                        "Answers": [
+                          "StopLossCanBeCancelled"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentStopLossOrderGuarantee",
+                        "Answers": [
+                          "StopLossCanHaveSlippage"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentFailsMarginCall",
+                        "Answers": [
+                          "CfdAssessmentClosePositionsForMargin"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentLeverageDerivative",
+                        "Answers": [
+                          "LeverageAmplifiesGainsAndLosses"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentLeverageRisk",
+                        "Answers": [
+                          "RiskOfLosingMoreThanTheInitialInvestment"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 3,
+                    "IsAlternative": false
+                  },
+                  {
+                    "Condition": "LessThan",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentSpread",
+                        "Answers": [
+                          "CfdAssessmentBidAskDifference"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentMainRiskLeveragedCfd",
+                        "Answers": [
+                          "CfdAssessmentAmplifiedLossesLeverage"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentFactorsPlacementStopLossOrder",
+                        "Answers": [
+                          "CfdAssessmentVolatilityRiskStrategy"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentPurposeStopLossLeveragedDerivative",
+                        "Answers": [
+                          "CfdAssessmentLimitLosses"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentMarginCallProfitableTrade",
+                        "Answers": [
+                          "CfdAssessmentBalanceBelowMargin"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 3,
+                    "IsAlternative": false
+                  }
+                ],
+                "MinCount": 1,
+                "IsAlternative": true
+              }
+            ],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "Blocked",
+        "TestBlockingConditions": []
+      }
+    ]
+  },
+  "MarginNegativeMarket": {
+    "DefaultResult": "Blocked",
+    "CoolingOffPeriodDuration": "00:00:00",
+    "Rules": [
+      {
+        "Name": "KnockOut",
+        "HasAutoRelease": false,
+        "Checks": [
+          {
+            "Condition": "Any",
+            "Priority": 1,
+            "Result": "Blocked",
+            "DefaultResult": "Blocked",
+            "QuestionAnswerChecks": [
+              {
+                "Condition": "Any",
+                "Question": "RiskAppetite",
+                "Answers": [
+                  "Plus5ToMinus3Percent"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": [
+                  {
+                    "MinAttemptNumber": 2,
+                    "TimeBetweenAttempts": "1.00:00:00",
+                    "IgnoreOnCheckResult": []
+                  }
+                ]
+              },
+              {
+                "Condition": "Any",
+                "Question": "AnnualIncome",
+                "Answers": [
+                  "UpTo10K"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": [
+                  {
+                    "MinAttemptNumber": 2,
+                    "TimeBetweenAttempts": "1.00:00:00",
+                    "IgnoreOnCheckResult": []
+                  }
+                ]
+              }
+            ],
+            "NestedChecks": [],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "Blocked",
+        "TestBlockingConditions": []
+      },
+      {
+        "Name": "TradingExperience",
+        "HasAutoRelease": true,
+        "AutoReleaseCondition": {
+          "DaysFromFtd": 60,
+          "AmountOfClosedTradingPosition": 20
+        },
+        "Checks": [
+          {
+            "Condition": "All",
+            "Priority": 1,
+            "Result": "Blocked",
+            "DefaultResult": "Blocked",
+            "QuestionAnswerChecks": [],
+            "NestedChecks": [
+              {
+                "Condition": "All",
+                "Priority": 0,
+                "Result": "Blocked",
+                "DefaultResult": "Blocked",
+                "QuestionAnswerChecks": [
+                  {
+                    "Condition": "Any",
+                    "Question": "Crypto",
+                    "Answers": [
+                      "NeverTraded"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  },
+                  {
+                    "Condition": "Any",
+                    "Question": "LeveragedCfd",
+                    "Answers": [
+                      "NeverTraded"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  },
+                  {
+                    "Condition": "Any",
+                    "Question": "TradingKnowledge",
+                    "Answers": [
+                      "NoFinancialKnowledge"
+                    ],
+                    "ExcludeAnswers": [],
+                    "IsRequired": true,
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  }
+                ],
+                "NestedChecks": [],
+                "MinCount": 1,
+                "IsAlternative": false
+              },
+              {
+                "Condition": "Any",
+                "Priority": 0,
+                "Result": "NotBlocked",
+                "DefaultResult": "Blocked",
+                "QuestionAnswerChecks": [],
+                "NestedChecks": [
+                  {
+                    "Condition": "All",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "Any",
+                        "Question": "TradingKnowledgeAssessment",
+                        "Answers": [
+                          "Leverage",
+                          "MarginCall",
+                          "StopLoss",
+                          "NewMarginCall",
+                          "NewCfd",
+                          "NewStopLoss",
+                          "NewStopLossGapThrough"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "ScoreAnswers": {
+                          "Answers": [
+                            {
+                              "Answer": "NewerLeverage",
+                              "Score": 2
+                            },
+                            {
+                              "Answer": "NewerCfd",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerMarginCall",
+                              "Score": 2
+                            },
+                            {
+                              "Answer": "NewerStopLossTrigger",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerStopLossGapThrough",
+                              "Score": -2
+                            },
+                            {
+                              "Answer": "NewerCfdTrs",
+                              "Score": -2
+                            }
+                          ],
+                          "QuestionScoreToRiskLevelMappings": [],
+                          "QuestionScoreToBlockResultMappings": [
+                            {
+                              "BlockResult": "Blocked",
+                              "MinTotalScore": -100
+                            },
+                            {
+                              "BlockResult": "NotBlocked",
+                              "MinTotalScore": -3
+                            }
+                          ]
+                        },
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 1,
+                    "IsAlternative": false
+                  },
+                  {
+                    "Condition": "LessThan",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentStopLossOrderCanceled",
+                        "Answers": [
+                          "StopLossCanBeCancelled"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentStopLossOrderGuarantee",
+                        "Answers": [
+                          "StopLossCanHaveSlippage"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentFailsMarginCall",
+                        "Answers": [
+                          "CfdAssessmentClosePositionsForMargin"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentLeverageDerivative",
+                        "Answers": [
+                          "LeverageAmplifiesGainsAndLosses"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "QuestionnaireCfdAssessmentLeverageRisk",
+                        "Answers": [
+                          "RiskOfLosingMoreThanTheInitialInvestment"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 3,
+                    "IsAlternative": false
+                  },
+                  {
+                    "Condition": "LessThan",
+                    "Priority": 0,
+                    "Result": "Blocked",
+                    "DefaultResult": "Blocked",
+                    "QuestionAnswerChecks": [
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentSpread",
+                        "Answers": [
+                          "CfdAssessmentBidAskDifference"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentMainRiskLeveragedCfd",
+                        "Answers": [
+                          "CfdAssessmentAmplifiedLossesLeverage"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentFactorsPlacementStopLossOrder",
+                        "Answers": [
+                          "CfdAssessmentVolatilityRiskStrategy"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentPurposeStopLossLeveragedDerivative",
+                        "Answers": [
+                          "CfdAssessmentLimitLosses"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      },
+                      {
+                        "Condition": "All",
+                        "Question": "CfdAssessmentMarginCallProfitableTrade",
+                        "Answers": [
+                          "CfdAssessmentBalanceBelowMargin"
+                        ],
+                        "ExcludeAnswers": [],
+                        "IsRequired": true,
+                        "TestBlockingConditions": [
+                          {
+                            "MinAttemptNumber": 2,
+                            "TimeBetweenAttempts": "1.00:00:00",
+                            "IgnoreOnCheckResult": []
+                          }
+                        ]
+                      }
+                    ],
+                    "NestedChecks": [],
+                    "MinCount": 3,
+                    "IsAlternative": false
+                  }
+                ],
+                "MinCount": 1,
+                "IsAlternative": true
+              }
+            ],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "Blocked",
+        "TestBlockingConditions": []
+      }
+    ]
+  },
+  "ExperimentalCryptoNegativeMarket": {
+    "Rules": [
+      {
+        "Name": "KnockOut",
+        "HasAutoRelease": false,
+        "Checks": [
+          {
+            "Condition": "Any",
+            "Priority": 1,
+            "Result": "Blocked",
+            "DefaultResult": "NotBlocked",
+            "QuestionAnswerChecks": [
+              {
+                "Condition": "Any",
+                "Question": "RiskAppetite",
+                "Answers": [
+                  "Plus5ToMinus3Percent"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": []
+              }
+            ],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "NotBlocked",
+        "TestBlockingConditions": []
+      }
+    ]
+  },
+  "Countries": [
+    {
+      "CountryId": 218,
+      "CryptoNegativeMarket": {
+        "DefaultResult": "Blocked",
+        "OnlyDirectTradeRestriction": true,
+        "CoolingOffPeriodDuration": "1.00:00:00",
+        "Rules": [
+          {
+            "Name": "CryptoKnowledgeAssessment",
+            "HasAutoRelease": false,
+            "Checks": [
+              {
+                "Condition": "All",
+                "Priority": 1,
+                "Result": "NotBlocked",
+                "DefaultResult": "NotBlocked",
+                "QuestionAnswerChecks": [
+                  {
+                    "Condition": "Any",
+                    "Question": "CryptoTradingKnowledgeAssessment",
+                    "Answers": [],
+                    "IsRequired": true,
+                    "ScoreAnswers": {
+                      "Answers": [
+                        {
+                          "Score": 1,
+                          "IsCorrect": true,
+                          "AnswerValue": "Yes"
+                        },
+                        {
+                          "Score": 1,
+                          "IsCorrect": false,
+                          "AnswerValue": "No"
+                        }
+                      ],
+                      "QuestionScoreToRiskLevelMappings": [],
+                      "QuestionScoreToBlockResultMappings": [
+                        {
+                          "BlockResult": "NotBlocked",
+                          "MinTotalScore": 5
+                        }
+                      ]
+                    },
+                    "TestBlockingConditions": [
+                      {
+                        "MinAttemptNumber": 2,
+                        "MaxAttemptNumber": 5,
+                        "TimeBetweenAttempts": "1.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      },
+                      {
+                        "MinAttemptNumber": 5,
+                        "TimeBetweenAttempts": "7.00:00:00",
+                        "IgnoreOnCheckResult": []
+                      }
+                    ]
+                  }
+                ],
+                "MinCount": 1,
+                "IsAlternative": false
+              }
+            ],
+            "DefaultResult": "Blocked",
+            "TestBlockingConditions": []
+          },
+          {
+            "Name": "ClassificationQuestionnaire",
+            "HasAutoRelease": false,
+            "Checks": [
+              {
+                "Condition": "All",
+                "Priority": 1,
+                "Result": "NotBlocked",
+                "DefaultResult": "NotBlocked",
+                "QuestionAnswerChecks": [
+                  {
+                    "Condition": "All",
+                    "Question": "IConfirmExposeHighNetWorthInvestor",
+                    "Answers": [
+                      "Yes"
+                    ],
+                    "IsRequired": true,
+                    "TestBlockingConditions": []
+                  },
+                  {
+                    "Condition": "All",
+                    "Question": "IConfirmExposeSophisticatedInvestor",
+                    "Answers": [
+                      "Yes"
+                    ],
+                    "IsRequired": true,
+                    "TestBlockingConditions": []
+                  }
+                ],
+                "MinCount": 1,
+                "IsAlternative": false
+              }
+            ],
+            "DefaultResult": "Blocked",
+            "TestBlockingConditions": []
+          }
+        ]
+      }
+    }
+  ],
+  "UpdatedOn": "2026-07-14T07:27:29.6778045Z"
+}

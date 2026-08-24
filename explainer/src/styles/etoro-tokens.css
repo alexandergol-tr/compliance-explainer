@@ -1,0 +1,244 @@
+/* ============================================================
+   eToro Marketing Design System — Foundations
+
+   VENDORED VERBATIM from `Etoro design system application.zip`
+   (`_ds/work-in-progress-website-design-system-0ac9d073/colors_and_type.css`),
+   snapshot 2026-08-13. The only edits are the four `@font-face` URLs, which now
+   point at `/fonts/` where Next serves `public/`.
+
+   Kept whole rather than trimmed to what this app uses, so refreshing it is a
+   copy over the top plus those URL edits — not a merge.
+
+   Note the source's own caveat: this is the *marketing* brand toolkit, described
+   there as "the visual source of truth for mocks and throwaway prototypes, not
+   production code".
+   ============================================================ */
+
+@font-face {
+  font-family: "eToro Variable";
+  src: url("/fonts/eToro-Variable.woff2") format("woff2");
+  font-weight: 100 900;       /* variable weight axis */
+  font-stretch: 60% 100%;     /* variable width axis (Compressed→Normal) */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "eToro Mono Variable";
+  src: url("/fonts/eToro-Mono-Variable.woff2") format("woff2");
+  font-weight: 100 900;       /* variable weight axis */
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Named-weight aliases: the Figma typography tokens carry weight names
+   ("Regular"/"Medium"/"Semibold"/"Extrabold") as their font-weight value.
+   Map each to the eToro Variable woff2 pinned at the matching numeric weight
+   so those tokens resolve to the real face. */
+@font-face { font-family: "Regular";   src: url("/fonts/eToro-Variable.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Medium";    src: url("/fonts/eToro-Variable.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Semibold";  src: url("/fonts/eToro-Variable.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Extrabold"; src: url("/fonts/eToro-Variable.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+
+:root {
+  /* ---------- PRIMARY ---------- */
+  --etoro-cream:         #ECEAD1; /* Bold display type, documentation fields */
+  --etoro-mint:          #6DFF8A; /* Signature accent. Activation/resolution/clarity + CTAs */
+  --etoro-forest:        #075434; /* Deep green — secondary surfaces, success depth */
+
+  /* ---------- BLACK LADDER (dark surfaces) ---------- */
+  --etoro-soft-black:    #10110E; /* Main background. Warm, softer near-black */
+  --etoro-carbon-olive:  #15170F; /* Secondary surfaces, adds depth */
+  --etoro-product-black: #292C32; /* Deep backgrounds, dark headlines, dialogs */
+
+  /* ---------- SECONDARY (sage-neutral scale) ---------- */
+  --etoro-n-50:  #F4F7F4; /* Main background (light mode) */
+  --etoro-n-100: #E8EEE8; /* Subtle backgrounds, alternating rows */
+  --etoro-n-200: #D0D9D0; /* Disabled element backgrounds */
+  --etoro-n-400: #9BA89B; /* Backgrounds & UI elements, muted text */
+  --etoro-n-500: #788578; /* Heavy borders, dark-mode card borders */
+  --etoro-n-600: #566356; /* Mid sage */
+  --etoro-n-700: #454F45; /* Deep sage — dark-mode success alert bg */
+  --etoro-slate-teal: #2C5F78; /* Secondary — slate teal (chart/accent) */
+
+  /* ---------- SEMANTIC ---------- */
+  --etoro-negative:   #FF6B6B; /* Destructive & error */
+  --etoro-stable:     #EDC500; /* Stable / caution states */
+  --etoro-white:      #FFFFFF; /* Sharp contrast, hierarchy, long text on dark */
+
+  /* ---------- ALPHA (opacity tokens) ---------- */
+  /* White — on dark surfaces */
+  --etoro-white-08: rgba(255,255,255,0.08); /* Card elevation */
+  --etoro-white-16: rgba(255,255,255,0.16); /* Subtle UI: dividers, borders, inactive icons */
+  --etoro-white-32: rgba(255,255,255,0.32); /* States & disabled: hover on dark, disabled text */
+  --etoro-white-60: rgba(255,255,255,0.60); /* Secondary text & icons */
+  --etoro-white-88: rgba(255,255,255,0.88); /* Primary text (softer than pure white) */
+  /* Mint — success / active accents */
+  --etoro-mint-12:  rgba(109,255,138,0.12); /* Active backgrounds: success badges, tags, active menu */
+  --etoro-mint-32:  rgba(109,255,138,0.32); /* Success borders: focus rings, outline badges */
+  --etoro-mint-80:  rgba(109,255,138,0.80); /* Hover states: text-links, overlay on mint buttons */
+  /* Negative Red — error / destructive */
+  --etoro-red-08:   rgba(255,107,107,0.08); /* Error backgrounds */
+  --etoro-red-24:   rgba(255,107,107,0.24); /* Error borders */
+  --etoro-red-80:   rgba(255,107,107,0.80); /* Destructive hover */
+  /* Soft Black — for use on lighter surfaces */
+  --etoro-black-08: rgba(16,17,14,0.08);    /* State softener (pressed effect over solids) */
+  --etoro-black-24: rgba(16,17,14,0.24);    /* Deepening: nest a section of a lighter bg */
+  --etoro-black-40: rgba(16,17,14,0.40);    /* Overlay surface: tinted-glass cards over imagery */
+  --etoro-black-72: rgba(16,17,14,0.72);    /* Page dimmer: modal scrims / side-menu backdrops */
+  /* Cream — translucent display tint */
+  --etoro-cream-12: rgba(236,234,209,0.12);
+  --etoro-cream-32: rgba(236,234,209,0.32);
+  --etoro-cream-72: rgba(236,234,209,0.72);
+
+  /* ---------- SEMANTIC ROLES (dark-first) ---------- */
+  --bg:            var(--etoro-soft-black);
+  --bg-elevated:   var(--etoro-product-black);
+  --bg-surface:    var(--etoro-carbon-olive);
+  --fg:            var(--etoro-cream);          /* DEFAULT text color on dark surfaces (body + headlines) */
+  --fg-strong:     var(--etoro-white);          /* high-contrast text: long-form reading, fine print on dark */
+  --fg-display:    var(--etoro-cream);          /* display headlines on dark */
+  --fg-muted:      var(--etoro-n-400);
+  --accent:        var(--etoro-mint);
+  --accent-ink:    var(--etoro-soft-black);     /* text on mint */
+  --border-subtle: var(--etoro-white-08);
+  --border-strong: var(--etoro-white-16);
+
+  /* ---------- GRADIENTS ---------- */
+  /* Gradient 01 — surface lift (documented). Product Black → slate-green. Card/section backgrounds. */
+  --etoro-gradient-01: linear-gradient(180deg, #292C32 0%, #355242 100%); /* @kind other */
+  /* Mint glow — signature bloom. Layered OVER a Product-Black surface (rgba mint 0 → 12%). */
+  --etoro-gradient-mint-glow: linear-gradient(180deg, rgba(109,255,138,0) 0%, rgba(109,255,138,0.12) 100%); /* @kind other */
+  /* Signature radial glow used behind cards/sections (top-left mint bloom) */
+  --etoro-glow: radial-gradient(120% 120% at 0% 0%, rgba(109,255,138,0.10) 0%, rgba(109,255,138,0) 55%); /* @kind other */
+  /* CTA / divider gradient: mint fading to transparent on product black */
+  --etoro-gradient-mint: linear-gradient(90deg, #6DFF8A 0%, rgba(109,255,138,0) 100%); /* @kind other */
+  /* Protection gradient: transparent → solid, fades page out behind pinned UI (sticky CTA, carousel edges) */
+  --etoro-gradient-protect: linear-gradient(180deg, rgba(16,17,14,0) 0%, rgb(16,17,14) 50%); /* @kind other */
+
+  /* ---------- TYPE FAMILIES ---------- */
+  --font-display: "eToro Variable", "Tusker Grotesk", "Arial Narrow", sans-serif;
+  --font-body:    "eToro Variable", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    "eToro Mono Variable", "SF Mono", "Roboto Mono", ui-monospace, monospace;
+
+  /* ---------- RADIUS ---------- */
+  --radius-sm:  8px;
+  --radius-md:  12px;
+  --radius-lg:  16px;
+  --radius-xl:  20px;
+  --radius-max: 100px;   /* pills */
+  --radius-card: var(--radius-lg);  /* card corner radius — 16px desktop (→ 12px on mobile, see below) */
+
+  /* ---------- SPACING (4px base grid: X1..X30) ---------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-30: 120px;
+
+  /* ---------- ELEVATION ---------- */
+  --shadow-card: 0 0 20px rgba(0,0,0,0.10);
+}
+
+/* ============================================================
+   BASE TEXT COLOR
+   Cream (#ECEAD1) is the brand's default text color on dark
+   surfaces — both headlines and body. Use --fg-strong (white)
+   only for high-contrast long-form reading or fine print, and
+   on light surfaces set color back to --etoro-soft-black.
+   ============================================================ */
+body {
+  color: var(--fg);                /* = cream */
+  font-family: var(--font-body);
+  background: var(--bg);
+}
+
+/* ============================================================
+   TYPE SCALE  (desktop)
+   Family: eToro Variable. Display weights are Extrabold/condensed.
+   ============================================================ */
+
+/* --- Titles --- */
+.t-headline-1 {            /* Main page title — only 1 per page */
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 72px; line-height: 1; letter-spacing: -2px;
+}
+.t-display {               /* Highlight a single standalone word */
+  font-family: var(--font-display);
+  font-weight: 800; font-size: 56px; line-height: 1; letter-spacing: -2px;
+}
+.t-headline-2 {            /* Section titles */
+  font-family: var(--font-display);
+  font-weight: 600; font-size: 32px; line-height: 1.1; letter-spacing: 0;
+}
+.t-headline-3 {            /* Sub-sections */
+  font-family: var(--font-body);
+  font-weight: 500; font-size: 28px; line-height: 1.1; letter-spacing: -0.5px;
+}
+.t-card-title {            /* Small headers inside cards/dense layouts */
+  font-family: var(--font-body);
+  font-weight: 600; font-size: 24px; line-height: 1.1; letter-spacing: -0.5px;
+}
+.t-subtitle {              /* Supporting text under headings */
+  font-family: var(--font-body);
+  font-weight: 500; font-size: 22px; line-height: 1.2; letter-spacing: 0;
+}
+
+/* --- Body --- */
+.t-body-lg      { font-family: var(--font-body); font-weight: 400; font-size: 20px; line-height: 1.35; }
+.t-body-lg-bold { font-family: var(--font-body); font-weight: 600; font-size: 20px; line-height: 1.35; }
+.t-body         { font-family: var(--font-body); font-weight: 400; font-size: 18px; line-height: 1.35; }
+.t-body-bold    { font-family: var(--font-body); font-weight: 600; font-size: 18px; line-height: 1.35; }
+.t-body-sm      { font-family: var(--font-body); font-weight: 400; font-size: 16px; line-height: 1.35; }
+.t-body-sm-bold { font-family: var(--font-body); font-weight: 600; font-size: 16px; line-height: 1.35; }
+.t-body-xs      { font-family: var(--font-body); font-weight: 400; font-size: 14px; line-height: 1.35; }
+.t-body-xs-bold { font-family: var(--font-body); font-weight: 600; font-size: 14px; line-height: 1.35; }
+
+/* --- UI text --- */
+.t-button   { font-family: var(--font-body); font-weight: 500; font-size: 18px; line-height: 1; }
+.t-overline { font-family: var(--font-body); font-weight: 500; font-size: 12px; line-height: 1;
+              letter-spacing: 2px; text-transform: uppercase; }
+.t-mono     { font-family: var(--font-mono); font-weight: 500; font-size: 16px; line-height: 1.4;
+              font-variant-numeric: tabular-nums; letter-spacing: 0; }
+
+/* ============================================================
+   PRIMITIVES
+   ============================================================ */
+.etoro-btn {
+  font-family: var(--font-body); font-weight: 500; font-size: 18px; line-height: 1;
+  border-radius: var(--radius-max); padding: 16px 32px; border: none; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  transition: transform .12s ease, background-color .15s ease, opacity .15s ease;
+}
+.etoro-btn:active { transform: scale(0.97); }
+.etoro-btn--primary   { background: var(--accent); color: var(--accent-ink); }
+.etoro-btn--primary:hover   { background: #84ffa0; }
+.etoro-btn--primary:disabled { background: rgba(109,255,138,0.18); color: rgba(255,255,255,0.35); cursor: default; }
+.etoro-btn--secondary { background: transparent; color: var(--fg); border: 1px solid var(--border-strong); }
+.etoro-btn--secondary:hover { background: var(--etoro-white-08); }
+
+.etoro-tag {
+  font-family: var(--font-body); font-weight: 500; font-size: 16px;
+  border-radius: var(--radius-max); padding: 8px 16px;
+  border: 1px solid var(--border-strong); color: var(--fg); background: transparent;
+}
+
+.etoro-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Cards round to 12px on mobile (≤760px) */
+@media (max-width: 760px) {
+  :root { --radius-card: var(--radius-md); }
+}

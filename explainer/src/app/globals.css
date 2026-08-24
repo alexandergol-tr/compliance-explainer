@@ -1,0 +1,108 @@
+@import "tailwindcss";
+@import "../styles/etoro-tokens.css";
+
+/* Semantic roles, then the risk ramp. Everything below points at an eToro token
+   rather than a hex, so the palette has exactly one definition — the vendored
+   `etoro-tokens.css` — and this file only decides which role each token plays. */
+@theme {
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+
+  --color-canvas: var(--etoro-soft-black);
+  --color-surface: var(--etoro-product-black);
+  --color-ink: var(--etoro-cream);
+  /* Long-form prose and fine print, where cream on near-black gets tiring. */
+  --color-ink-strong: var(--etoro-white);
+  --color-muted: var(--etoro-n-400);
+  --color-hairline: var(--etoro-white-08);
+  --color-hairline-strong: var(--etoro-white-16);
+  --color-accent: var(--etoro-mint);
+  --color-accent-ink: var(--etoro-soft-black);
+  --color-caution: var(--etoro-stable);
+  --color-negative: var(--etoro-negative);
+
+  /* Ascending risk, as a hue ramp from mint through yellow to red.
+     Minimal and Low share the mint hue because the design does, and because they
+     also share an authorised risk score of 3 — the ramp has five names but only
+     four steps that change what a user may copy. `RiskBadge` keeps them apart by
+     giving Minimal the outline treatment instead of a second mint fill. */
+  --color-risk-minimal: transparent;
+  --color-risk-minimal-ink: var(--etoro-mint);
+  --color-risk-low: var(--etoro-mint-12);
+  --color-risk-low-ink: var(--etoro-mint);
+  --color-risk-medium: rgba(237, 197, 0, 0.12);
+  --color-risk-medium-ink: var(--etoro-stable);
+  --color-risk-mediumhigh: rgba(255, 107, 107, 0.08);
+  --color-risk-mediumhigh-ink: color-mix(in oklch, var(--etoro-stable) 35%, var(--etoro-negative) 65%);
+  --color-risk-high: rgba(255, 107, 107, 0.1);
+  --color-risk-high-ink: var(--etoro-negative);
+}
+
+html {
+  color-scheme: dark;
+}
+
+/* In `base` so an explicit `text-*` utility still wins — the header wordmark and the
+   fixture rows are links that should read as text, not as mint call-to-actions. */
+@layer base {
+  a {
+    color: var(--etoro-mint);
+  }
+
+  a:hover {
+    color: var(--etoro-mint-80);
+  }
+}
+
+/* The disclosure chevron the design uses on every `<details>`: no native marker,
+   a small sage triangle that quarter-turns when open. */
+summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+.sx-arrow {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 10px;
+  font-size: 10px;
+  color: var(--etoro-n-400);
+  transition: transform 0.15s ease;
+}
+
+details[open] > summary .sx-arrow {
+  transform: rotate(90deg);
+}
+
+/* The tree's connector rails: solid under a factor, dashed under a component. */
+.tree-rail {
+  border-left: 2px solid var(--color-hairline);
+}
+
+.tree-rail-inner {
+  border-left: 1px dashed var(--color-hairline);
+}
+
+/* Signature surface lift, used for the two panels that carry the headline
+   result. Cards elsewhere stay flat Product Black. */
+.etoro-lift {
+  background: var(--etoro-gradient-01);
+  box-shadow: var(--shadow-card);
+}
+
+/* Marks the row that decided its component. A mint wash that fades out to the
+   right, rather than a border, so it reads as emphasis and not as a nested box. */
+.determinant {
+  background: linear-gradient(90deg, var(--etoro-mint-12), transparent 90%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

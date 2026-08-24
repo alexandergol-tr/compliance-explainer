@@ -1,0 +1,143 @@
+{
+  "id": "MAS-12",
+  "Regulation": "MAS",
+  "Version": 12,
+  "UpdatedOn": "2026-07-08T07:36:46.8916877Z",
+  "CfdNegativeMarket": {
+    "DefaultResult": "Blocked",
+    "ReassessmentTtl": "364.00:00:00",
+    "Rules": [
+      {
+        "Name": "KnockOut",
+        "HasAutoRelease": false,
+        "Checks": [
+          {
+            "Condition": "All",
+            "Priority": 1,
+            "Result": "Blocked",
+            "DefaultResult": "Blocked",
+            "QuestionAnswerChecks": [
+              {
+                "Condition": "Any",
+                "Question": "HaveYouTransactedCFD",
+                "Answers": [
+                  "No"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": []
+              },
+              {
+                "Condition": "Any",
+                "Question": "CkaTradingKnowledge",
+                "Answers": [
+                  "NoFinancialKnowledge"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": []
+              }
+            ],
+            "NestedChecks": [],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "Blocked",
+        "TestBlockingConditions": []
+      },
+      {
+        "Name": "TradingExperience",
+        "HasAutoRelease": false,
+        "Checks": [
+          {
+            "Condition": "Any",
+            "Priority": 2,
+            "Result": "NotBlocked",
+            "DefaultResult": "Blocked",
+            "QuestionAnswerChecks": [
+              {
+                "Condition": "Any",
+                "Question": "HaveYouTransactedCFD",
+                "Answers": [
+                  "Yes"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": true,
+                "TestBlockingConditions": []
+              },
+              {
+                "Condition": "Any",
+                "Question": "CkaAcademicQualification",
+                "Answers": [
+                  "Accountancy",
+                  "ActuarialScience",
+                  "BusinessAdministration",
+                  "BusinessManagementStudies",
+                  "CapitalMarkets",
+                  "Commerce",
+                  "ComputationalFinance",
+                  "Economics",
+                  "Finance",
+                  "FinancialEngineering",
+                  "FinancialPlanning",
+                  "Insurance"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": false,
+                "TestBlockingConditions": []
+              },
+              {
+                "Condition": "Any",
+                "Question": "CkaProfessionalCertificate",
+                "Answers": [
+                  "ACCA",
+                  "AFP",
+                  "AWP",
+                  "CFP",
+                  "CTE",
+                  "FRM",
+                  "CAIA",
+                  "CFA",
+                  "CHFC",
+                  "CPA",
+                  "CISI"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": false,
+                "TestBlockingConditions": []
+              },
+              {
+                "Condition": "Any",
+                "Question": "CkaWorkExperience",
+                "Answers": [
+                  "Accountancy",
+                  "ActuarialScience",
+                  "FinancialRiskManagement",
+                  "DevelopmentOfInvestmentProducts",
+                  "StructuringOfInvestmentProducts",
+                  "ManagementOfInvestmentProducts",
+                  "SaleOfInvestmentProducts",
+                  "TradingOfInvestmentProducts",
+                  "ResearchAndAnalysisOfInvestmentProducts",
+                  "ProvisionOfTrainingInInvestmentProducts",
+                  "Treasury",
+                  "ProvisionOfLegalAdviceOrPossessionOfLegalExpertise"
+                ],
+                "ExcludeAnswers": [],
+                "IsRequired": false,
+                "TestBlockingConditions": []
+              }
+            ],
+            "NestedChecks": [],
+            "MinCount": 1,
+            "IsAlternative": false
+          }
+        ],
+        "DefaultResult": "Blocked",
+        "TestBlockingConditions": []
+      }
+    ]
+  },
+  "Countries": []
+}

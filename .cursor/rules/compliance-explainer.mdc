@@ -1,0 +1,15 @@
+---
+description: Compliance Explainer — always-on agent context for this repo
+alwaysApply: true
+---
+
+# Compliance Explainer
+
+Internal tools for copy **suitability** and **Negative Market**. Read [AGENTS.md](AGENTS.md) before writing code.
+
+- Three tests, treated separately: suitability (copy risk cap), NM (product hard-block), appropriateness (not modelled). Shared KYC answers do not make them one formula.
+- The explainer **reads** the engine tree. Do not port scoring tables into app code.
+- KYCAnalyzer GET clients only. Never POST/PATCH profile or configuration.
+- Never infer GCID vs CID from a number. Require `IdKind`.
+- Do not commit secrets or live customer profiles.
+- After changing Excel generators, run the matching `verify_*.py`. After explainer changes, `npm run check` in `explainer/`.
