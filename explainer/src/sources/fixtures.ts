@@ -56,6 +56,36 @@ import type {
 const LEVEL = { Minimal: 100, Low: 200, Medium: 300, MediumHigh: 400, High: 500 } as const;
 const BLOCK = { Blocked: 1, NotBlocked: 2 } as const;
 
+function nmRule(name: string, result: 'Blocked' | 'NotBlocked') {
+  return { rule: name, result, checkResult: result, attempts: [] };
+}
+
+function nmProduct(
+  result: 'Blocked' | 'NotBlocked',
+  rules: ReturnType<typeof nmRule>[],
+  version = 24,
+) {
+  return {
+    result,
+    assessmentExpired: false,
+    configurationVersion: version,
+    ruleResults: rules,
+    isAllQuestionsAnswered: true,
+  };
+}
+
+/** CySEC v24 — four NM products with KnockOut + TradingExperience on the first three. */
+function cysecNmProducts(cfdResult: 'Blocked' | 'NotBlocked') {
+  const experience = [nmRule('KnockOut', 'NotBlocked'), nmRule('TradingExperience', 'NotBlocked')];
+  const knockoutBlocked = [nmRule('KnockOut', 'Blocked'), nmRule('TradingExperience', 'NotBlocked')];
+  return {
+    Cfd: nmProduct(cfdResult, cfdResult === 'Blocked' ? knockoutBlocked : experience),
+    Futures: nmProduct('NotBlocked', experience),
+    Margin: nmProduct('NotBlocked', experience),
+    ExperimentalCrypto: nmProduct('NotBlocked', [nmRule('KnockOut', 'NotBlocked')]),
+  };
+}
+
 /**
  * Questions and answers are referenced by enum *name*, resolved to ids at module load.
  *
@@ -593,6 +623,7 @@ const FIXTURES: Record<number, Fixture> = {
         },
         suitabilityCalculationDetails: workedExampleTree(),
       },
+      productNegativeMarkets: cysecNmProducts('NotBlocked'),
     },
   },
 
@@ -625,6 +656,7 @@ const FIXTURES: Record<number, Fixture> = {
         },
         suitabilityCalculationDetails: hardBlockedTree(),
       },
+      productNegativeMarkets: cysecNmProducts('Blocked'),
     },
   },
 
@@ -891,6 +923,14 @@ const FIXTURES: Record<number, Fixture> = {
           manuallyUnblocked: false,
         },
         suitabilityCalculationDetails: gamlTree(),
+      },
+      productNegativeMarkets: {
+        Cfd: nmProduct('Blocked', [
+          nmRule('KnockOut', 'Blocked'),
+          nmRule('TradingExperience', 'NotBlocked'),
+          nmRule('CfdRiskAssessment', 'NotBlocked'),
+        ], 15),
+        ExperimentalCrypto: nmProduct('NotBlocked', [nmRule('KnockOut', 'NotBlocked')], 15),
       },
     },
   },

@@ -2,6 +2,11 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { sourceFor } from '@/sources';
 import type { IdKind } from '@/sources/types';
+import {
+  CosmosNotConfigured,
+  CosmosQueryError,
+  describeCosmosFailure,
+} from '@/sources/cosmos/read-only-client';
 
 /**
  * Resolution, as its own step.
@@ -46,7 +51,21 @@ export default async function LookupPage({
 
   // No inference. An unrecognised kind is an error, not an invitation to guess — see the
   // `OtherSpace` note in sources/types.ts for why guessing shows the wrong customer.
-  if (rawKind !== 'gcid' && rawKind !== 'cid') {
+  // CID lookup is UI-disabled until identity resolution is wired. Do not resolve a CID from a
+  // crafted URL in the meantime — the number space overlaps GCIDs.
+  if (rawKind === 'cid') {
+    return (
+      <Notice title="CID lookup is not available yet">
+        <p>
+          Lookups are GCID-only until identity resolution is wired. Enter the GCID instead of
+          guessing from a CID — the number spaces overlap, so treating a CID as a GCID would show
+          a different customer.
+        </p>
+      </Notice>
+    );
+  }
+
+  if (rawKind !== 'gcid') {
     return (
       <Notice title="Say which kind of identifier that is">
         <p>
@@ -62,7 +81,33 @@ export default async function LookupPage({
   }
 
   const kind: IdKind = rawKind;
-  const resolution = await sourceFor(id).resolve(id, kind);
+  let resolution;
+  try {
+    resolution = await sourceFor(id).resolve(id, kind);
+  } catch (error) {
+    // Without an identity map, GCID resolve hits Cosmos to see whether a profile exists.
+    // A firewall 403 is not "no such user"; the profile page already says so — lookup must too.
+    if (error instanceof CosmosQueryError) {
+      const { title, detail } = describeCosmosFailure(error);
+      return (
+        <Notice title={title}>
+          <p>{detail}</p>
+          <p className="text-muted">
+            This says nothing about the identifier — the lookup never happened. The synthetic
+            examples on the home page still work, since they need no network access.
+          </p>
+        </Notice>
+      );
+    }
+    if (error instanceof CosmosNotConfigured) {
+      return (
+        <Notice title="The Cosmos source is not configured">
+          <p>{error.message}</p>
+        </Notice>
+      );
+    }
+    throw error;
+  }
 
   switch (resolution.kind) {
     case 'resolved':

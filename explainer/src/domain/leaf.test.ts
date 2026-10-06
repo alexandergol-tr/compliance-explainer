@@ -118,6 +118,7 @@ function config(components: ConfigComponent[], defaultRiskLevel = 'Medium' as co
     scoreMappings: {},
     blockChecks: [],
     blockDefaultResult: null,
+    negativeMarketProducts: [],
   };
 }
 

@@ -55,9 +55,12 @@ function coverageLabel(roles: Coverage[], defaultRiskLevel: string | null): stri
 export function AnswersTable({
   answers,
   coverage,
+  describeCoverage,
 }: {
   answers: RawQuestionAnswers[];
   coverage: CoverageIndex;
+  /** Override role labels — e.g. Negative Market uses different "not used" copy. */
+  describeCoverage?: (roles: Coverage[]) => string;
 }) {
   if (answers.length === 0) {
     return <p className="text-sm text-muted">No answers are stored for this user.</p>;
@@ -79,7 +82,9 @@ export function AnswersTable({
         answer: a.text,
         reconstructed: a.source !== 'static-data',
         roles,
-        coverageLabel: coverageLabel(roles, coverage.defaultRiskLevel),
+        coverageLabel: describeCoverage
+          ? describeCoverage(roles)
+          : coverageLabel(roles, coverage.defaultRiskLevel),
       };
     });
   });

@@ -78,6 +78,7 @@ function config(overrides: Partial<LoadedConfig> = {}): LoadedConfig {
       },
     ],
     blockDefaultResult: 'NotBlocked',
+    negativeMarketProducts: [],
     ...overrides,
   };
 }

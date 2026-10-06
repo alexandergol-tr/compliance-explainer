@@ -32,12 +32,13 @@ They share KYC answers and `config-prod/`. They are **separate tests**. Passing 
 AGENTS.md                 this file
 README.md                 research + project map
 nm-formulas.md            NM rules per regulation
+research-sources/         product ST / NM / AT spreadsheets + AT scoring doc (not engine SoT)
 config-prod/              live ClientRiskProfileConfiguration snapshots
 build_workbook.py         → eToro-suitability-test-calculator.xlsx
 verify_workbook.py
 build_nm_workbook.py      → eToro-negative-market-calculator.xlsx
 verify_nm_workbook.py
-explainer/                Next.js spike (suitability only)
+explainer/                Next.js spike (suitability + NM tabs; AT placeholder)
 app-handoff/              build brief for the app (HANDOFF, DATA-CONTRACT, MANIFEST)
 ```
 

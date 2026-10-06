@@ -241,7 +241,7 @@ function Component({
   const decisiveIndex = aggregation ? determinant(aggregation) : null;
 
   return (
-    <details open className="mt-1">
+    <details className="mt-1">
       <summary className="flex items-center gap-2.5 px-3 py-2">
         <Arrow />
         <span className="text-[13px] font-medium">{node.title}</span>
@@ -272,7 +272,7 @@ function Factor({ node, explanation }: { node: TreeNode; explanation: TreeExplan
   const aggregation = explanation.byNodeId.get(node.id);
 
   return (
-    <details open className="border-b border-hairline last-of-type:border-0">
+    <details className="border-b border-hairline last-of-type:border-0">
       <summary className="flex items-center gap-2.5 px-1 py-4">
         <Arrow />
         <span className="text-sm font-semibold">{node.title}</span>

@@ -1,37 +1,43 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AnswersTable } from '@/components/answers-table';
+import { AppropriatenessTab } from '@/components/appropriateness-tab';
+import { HardBlockView } from '@/components/hard-block-view';
 import { FormulaView } from '@/components/formula-view';
 import { MonitoringView } from '@/components/monitoring-view';
+import { NmFormulaView } from '@/components/nm-formula-view';
+import { NmOutcomeCard } from '@/components/nm-outcome-card';
+import { NmRulesView } from '@/components/nm-rules-view';
 import { OutcomeCard } from '@/components/outcome-card';
+import { ProfileCollapsible, ProfileSectionHead } from '@/components/profile-section';
+import {
+  parseProfileTab,
+  ProfileTestTabs,
+} from '@/components/profile-test-tabs';
+import { ProvenanceSection } from '@/components/provenance-section';
 import { TreeControls } from '@/components/tree-controls';
 import { TreeView } from '@/components/tree-view';
 import { Warnings } from '@/components/warnings';
 import { loadConfigFor } from '@/config/load';
 import { explainTree } from '@/domain/arithmetic';
 import { assumesCurrency, CopySnapshot } from '@/domain/copy';
+import { explainHardBlock } from '@/domain/block-explain';
 import { buildCoverageIndex } from '@/domain/coverage';
 import { deriveFormula } from '@/domain/formula';
 import { riskLevelName } from '@/domain/ids';
+import { buildNmCoverageIndex, nmCoverageLabel } from '@/domain/nm-coverage';
+import { deriveNmOutcome } from '@/domain/negative-market';
 import { explainMonitoring } from '@/domain/monitoring';
-import { deriveMonitoring, deriveOutcome } from '@/domain/outcome';
+import { deriveMonitoring, deriveOutcome, type Provenance } from '@/domain/outcome';
 import { normaliseTree } from '@/domain/tree';
 import { activeSource, sourceFor } from '@/sources';
+import type { RawQuestionAnswers } from '@/sources/types';
 import {
   CosmosNotConfigured,
   CosmosQueryError,
   describeCosmosFailure,
 } from '@/sources/cosmos/read-only-client';
 
-/**
- * The `GCID nnn` line and its way out, shared by the failure and success paths.
- *
- * It states how this GCID was arrived at, because the two routes are not equally trustworthy and
- * the page is otherwise silent about the difference. A GCID typed straight in involved no
- * translation; one resolved from a CID passed through the identity map, and given that the same
- * number is usually valid in more than one space, "which number did I actually type" is the first
- * thing to check when a profile looks like the wrong person.
- */
 function LookupRow({ gcid, via, from }: { gcid: number; via?: string; from?: number }) {
   const provenance =
     via === 'cid' && from
@@ -69,81 +75,24 @@ function SourceFailure({ gcid, title, detail }: { gcid: number; title: string; d
   );
 }
 
-/** A heading above a card, optionally with controls on the right. */
-function SectionHead({
-  title,
-  subtitle,
-  children,
-}: {
-  title: string;
-  subtitle?: string;
-  children?: React.ReactNode;
-}) {
-  return (
-    <div className="mb-3.5 flex flex-wrap items-baseline justify-between gap-3">
-      <div>
-        <h2 className="text-[17px] font-semibold">{title}</h2>
-        {subtitle && <p className="mt-1 text-[12.5px] text-muted">{subtitle}</p>}
-      </div>
-      {children}
-    </div>
-  );
-}
-
-/**
- * A card that opens and closes, for the reference material at the bottom of the page.
- *
- * Always starts closed. An earlier version opened the monitoring card whenever monitoring was the
- * thing blocking the user, which sounds helpful and is not: the verdict is already in the outcome
- * card at the top, so all the auto-open did was push the other two sections off the screen for the
- * users whose page was busiest.
- *
- * `details` rather than a state hook: this page is a server component, and collapsing a section is
- * not worth shipping a client bundle for. Keyboard toggling, the open/closed announcement and
- * in-page find all come from the element itself.
- */
-function Collapsible({
-  title,
-  subtitle,
-  children,
-}: {
-  title: string;
-  subtitle?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <details className="rounded-2xl border border-hairline bg-surface px-6 py-4.5 shadow-[var(--shadow-card)]">
-      <summary className="flex items-baseline gap-2.5">
-        <span className="sx-arrow" aria-hidden>
-          ▸
-        </span>
-        <span className="text-base font-semibold">{title}</span>
-      </summary>
-      {subtitle && <p className="mt-1 mb-5 pl-6 text-[12.5px] text-muted">{subtitle}</p>}
-      <div className="pl-6">{children}</div>
-    </details>
-  );
-}
-
 export default async function ProfilePage({
   params,
   searchParams,
 }: {
   params: Promise<{ gcid: string }>;
-  searchParams: Promise<{ via?: string; from?: string }>;
+  searchParams: Promise<{ via?: string; from?: string; tab?: string; product?: string }>;
 }) {
-  const [{ gcid: rawGcid }, { via, from: rawFrom }] = await Promise.all([params, searchParams]);
+  const [{ gcid: rawGcid }, query] = await Promise.all([params, searchParams]);
   const gcid = Number(rawGcid);
   if (!Number.isInteger(gcid) || gcid <= 0) notFound();
 
-  const from = Number(rawFrom);
-  const lookedUpAs = { via, from: Number.isInteger(from) && from > 0 ? from : undefined };
+  const from = Number(query.from);
+  const lookedUpAs = { via: query.via, from: Number.isInteger(from) && from > 0 ? from : undefined };
+  const tab = parseProfileTab(query.tab);
+  const tabQuery = { via: lookedUpAs.via, from: lookedUpAs.from, product: query.product };
 
   const source = sourceFor(gcid);
 
-  // Only source-level failures are caught, and only to say what went wrong. Anything else is a
-  // bug and should keep crashing loudly — an app that swallows its own exceptions and renders an
-  // empty profile is indistinguishable from one reporting that a customer has no data.
   let profile;
   try {
     profile = await source.getProfile(gcid);
@@ -164,8 +113,6 @@ export default async function ProfilePage({
     throw error;
   }
 
-  // The config that produced the result, not the current one — configs change, and comparing a
-  // result against a newer config manufactures disagreements that were never there.
   const { config, exact } = await loadConfigFor(
     typeof profile?.regulation === 'string' ? profile.regulation : null,
     profile?.configurationVersion ?? null,
@@ -173,10 +120,8 @@ export default async function ProfilePage({
 
   const answers = profile?.questionsAnswers ?? [];
   const formula = config ? deriveFormula(config) : null;
-
   const outcome = deriveOutcome(profile, config?.scoreMappings ?? null);
-  // Gated on the profile carrying monitoring data rather than on the outcome, since the gate can
-  // have run on a user the scoring never reached.
+  const nmOutcome = deriveNmOutcome(profile, config);
   const monitoring = profile ? explainMonitoring(profile, deriveMonitoring(profile)) : null;
   const tree = normaliseTree(profile?.suitability?.suitabilityCalculationDetails);
   const explanation = explainTree(
@@ -186,62 +131,89 @@ export default async function ProfilePage({
     answers,
   );
 
-  const warnings = [...tree.warnings, ...explanation.warnings];
+  const suitabilityWarnings = [...tree.warnings, ...explanation.warnings];
+  const nmWarnings: string[] = [];
 
-  // Absence has to be attributed to the right cause, and there are three of them. The source
-  // may be incapable of returning a tree at all; the outcome may be one where an empty tree is
-  // correct, which the outcome card already explains; or the engine scored the user and the tree
-  // is genuinely missing. Only the last is a warning.
   if (!source.capabilities.tree) {
-    warnings.push(
+    suitabilityWarnings.push(
       `The active source (${source.label}) cannot return the calculation tree — it is not part of ` +
         'that contract. An empty tree below says nothing about this user.',
     );
   } else if (outcome.kind === 'assessed' && tree.nodes.length === 0) {
-    warnings.push(
+    suitabilityWarnings.push(
       'This user has a risk level but no stored calculation nodes, so there is no way to show how ' +
         'it was reached. Either the tree was never persisted or it was lost on the way here.',
     );
   }
   if (!source.capabilities.answers) {
-    warnings.push(
+    suitabilityWarnings.push(
       `The active source cannot return the user's answers either, so the answers table is empty ` +
         'regardless of what they answered.',
     );
   }
 
   if (profile && config && !exact) {
-    warnings.push(
+    const msg =
       `This result was produced by ${profile.regulation} v${profile.configurationVersion}, which is not ` +
-        `in config-prod/. Showing ${config.id} instead, so answer-scoring details may differ from what actually ran.`,
-    );
+      `in config-prod/. Showing ${config.id} instead, so answer-scoring details may differ from what actually ran.`;
+    suitabilityWarnings.push(msg);
+    nmWarnings.push(msg);
   }
-  // Once, not once per money question. The caveat is about the whole page, and repeating it under
-  // every amount was the single biggest source of noise on a profile.
+
   if (answers.some((entry) => assumesCurrency(entry.questionId))) {
-    warnings.push(
+    const msg =
       `Amounts are shown in ${CopySnapshot.assumedCurrency}. The profile does not record the ` +
-        'account currency, so that is this view\u2019s assumption and not necessarily what the user saw.',
-    );
+      'account currency, so that is this view\u2019s assumption and not necessarily what the user saw.';
+    suitabilityWarnings.push(msg);
+    nmWarnings.push(msg);
   }
+
   if (
     profile?.lastAnswerOccurredAt &&
     profile.updatedOn &&
     profile.lastAnswerOccurredAt > profile.updatedOn
   ) {
-    warnings.push(
+    const msg =
       'The user answered something after this result was calculated, so the stored tree reflects an ' +
-        'older set of answers. Any comparison against a recomputation would be meaningless until it reruns.',
+      'older set of answers. Any comparison against a recomputation would be meaningless until it reruns.';
+    suitabilityWarnings.push(msg);
+    nmWarnings.push(msg);
+  }
+
+  if (
+    outcome.kind === 'assessed' &&
+    outcome.hardBlocked !== true &&
+    nmOutcome.kind === 'assessed' &&
+    nmOutcome.products.some((p) => p.result === 'Blocked')
+  ) {
+    nmWarnings.push(
+      'Copy suitability is not hard-blocked, but at least one Negative Market product is Blocked. ' +
+        'These are separate tests — passing one does not pass the other.',
     );
   }
+
+  if (nmOutcome.kind === 'assessed' && !profile?.productNegativeMarkets) {
+    nmWarnings.push(
+      'The configuration defines Negative Market products, but this profile carries no stored ' +
+        'productNegativeMarkets section.',
+    );
+  }
+
+  const provenance =
+    outcome.kind === 'never-calculated' ? nmOutcome.provenance : outcome.provenance;
+
+  const selectedProduct =
+    nmOutcome.kind === 'assessed'
+      ? (nmOutcome.products.find((p) => p.storedKey === query.product)?.storedKey ??
+        nmOutcome.products.find((p) => p.result === 'Blocked')?.storedKey ??
+        nmOutcome.products[0]?.storedKey)
+      : undefined;
 
   return (
     <div>
       <LookupRow gcid={gcid} via={lookedUpAs.via} from={lookedUpAs.from} />
 
       <div className="space-y-6">
-        {/* The header describes the configured source. This page may not be using it, and a page
-            of synthetic data under a "real customer data" header is exactly the wrong impression. */}
         {source.id !== activeSource().id && (
           <p className="rounded-xl border border-[rgba(237,197,0,0.24)] bg-[rgba(237,197,0,0.08)] px-4 py-3 text-[13px]">
             This is a worked example, not a customer. {gcid} falls in the reserved example range, so
@@ -249,84 +221,201 @@ export default async function ProfilePage({
           </p>
         )}
 
-        <OutcomeCard outcome={outcome} />
+        <ProfileTestTabs gcid={gcid} active={tab} query={tabQuery} />
 
-        <Warnings items={warnings} />
-
-        {tree.nodes.length > 0 && (
-          <section>
-            <SectionHead title="How it was calculated">
-              <TreeControls />
-            </SectionHead>
-            <TreeView tree={tree} explanation={explanation} />
-          </section>
+        {tab === 'suitability' && (
+          <SuitabilityPanel
+            outcome={outcome}
+            warnings={suitabilityWarnings}
+            tree={tree}
+            explanation={explanation}
+            formula={formula}
+            exact={exact}
+            config={config}
+            monitoring={monitoring}
+            answers={answers}
+            provenance={provenance}
+          />
         )}
 
-        {/* Everything below the tree is reference material, and all of it stays closed. You arrive
-            wanting the result, which is above; these are what you open once you have it, in the
-            order you would reach for them — the rule, then the second gate that rule says nothing
-            about, then the ids you need to cross-check either one. */}
-        {formula && (
-          <Collapsible
-            title={`Formula — ${formula.regulation} v${formula.version}`}
-            subtitle={
-              exact
-                ? 'The rules behind the result above, read from the configuration document that produced it.'
-                : `The rules behind the result above, read from ${formula.id} — not the version that produced it.`
-            }
-          >
-            <FormulaView formula={formula} />
-          </Collapsible>
+        {tab === 'negative-market' && (
+          <NegativeMarketPanel
+            nmOutcome={nmOutcome}
+            warnings={nmWarnings}
+            gcid={gcid}
+            selectedProduct={selectedProduct}
+            tabQuery={tabQuery}
+            config={config}
+            exact={exact}
+            answers={answers}
+            provenance={nmOutcome.provenance}
+          />
         )}
 
-        {monitoring && (
-          <Collapsible
-            title="Ongoing monitoring"
-            subtitle="A daily check that the money in copies has not outgrown what this user can sustain. Separate from the score above, and the only other thing that can stop a copy."
-          >
-            <MonitoringView explanation={monitoring} />
-          </Collapsible>
-        )}
-
-        {answers.length > 0 && (
-          <Collapsible
-            title="Questions and answers by id"
-            subtitle={
-              config
-                ? `Every answer on record with its question and answer ids, checked against ${config.id}.`
-                : 'Every answer on record with its question and answer ids. No configuration loaded, so scoring coverage cannot be checked.'
-            }
-          >
-            <AnswersTable answers={answers} coverage={buildCoverageIndex(config)} />
-          </Collapsible>
-        )}
-
-        <section className="rounded-2xl border border-hairline bg-surface px-6 py-4.5 shadow-[var(--shadow-card)]">
-          <h2 className="mb-3 text-[11px] font-medium uppercase tracking-[0.05em] text-muted">
-            Provenance
-          </h2>
-          <dl className="grid gap-x-6 gap-y-3 font-mono text-[12px] sm:grid-cols-3">
-            {(
-              [
-                ['Regulation', outcome.provenance.regulation],
-                ['Config version', outcome.provenance.configurationVersion],
-                ['Country id', outcome.provenance.countryId],
-                ['Verification level', outcome.provenance.verificationLevel],
-                ['Last recalculated because', outcome.provenance.recalculationReason],
-                ['Result updated', outcome.provenance.updatedOn],
-                ['Last answer at', outcome.provenance.lastAnswerOccurredAt],
-              ] as const
-            ).map(([label, value]) => (
-              <div key={label}>
-                <dt className="mb-0.5 font-sans text-[10px] uppercase tracking-[0.04em] text-muted">
-                  {label}
-                </dt>
-                <dd>{value ?? <span className="text-muted">—</span>}</dd>
-              </div>
-            ))}
-          </dl>
-        </section>
+        {tab === 'appropriateness' && <AppropriatenessTab provenance={provenance} />}
       </div>
+    </div>
+  );
+}
+
+function SuitabilityPanel({
+  outcome,
+  warnings,
+  tree,
+  explanation,
+  formula,
+  exact,
+  config,
+  monitoring,
+  answers,
+  provenance,
+}: {
+  outcome: ReturnType<typeof deriveOutcome>;
+  warnings: string[];
+  tree: ReturnType<typeof normaliseTree>;
+  explanation: ReturnType<typeof explainTree>;
+  formula: ReturnType<typeof deriveFormula>;
+  exact: boolean;
+  config: Awaited<ReturnType<typeof loadConfigFor>>['config'];
+  monitoring: ReturnType<typeof explainMonitoring> | null;
+  answers: RawQuestionAnswers[];
+  provenance: Provenance;
+}) {
+  const hardBlockChecks = explainHardBlock(config, answers);
+  const storedBlocked = outcome.kind === 'assessed' ? outcome.hardBlocked : null;
+
+  return (
+    <div className="space-y-6">
+      <OutcomeCard outcome={outcome} />
+      <Warnings items={warnings} />
+
+      {hardBlockChecks.length > 0 && (
+        <HardBlockView checks={hardBlockChecks} storedBlocked={storedBlocked} />
+      )}
+
+      {tree.nodes.length > 0 && (
+        <section>
+          <ProfileSectionHead title="How it was calculated">
+            <TreeControls />
+          </ProfileSectionHead>
+          <TreeView tree={tree} explanation={explanation} />
+        </section>
+      )}
+
+      {formula && (
+        <ProfileCollapsible
+          title={`Formula — ${formula.regulation} v${formula.version}`}
+          subtitle={
+            exact
+              ? 'The rules behind the result above, read from the configuration document that produced it.'
+              : `The rules behind the result above, read from ${formula.id} — not the version that produced it.`
+          }
+        >
+          <FormulaView formula={formula} />
+        </ProfileCollapsible>
+      )}
+
+      {monitoring && (
+        <ProfileCollapsible
+          title="Ongoing monitoring"
+          subtitle="A daily check that the money in copies has not outgrown what this user can sustain. Separate from the score above, and the only other thing that can stop a copy."
+        >
+          <MonitoringView explanation={monitoring} />
+        </ProfileCollapsible>
+      )}
+
+      {answers.length > 0 && (
+        <ProfileCollapsible
+          title="Questions and answers by id"
+          subtitle={
+            config
+              ? `Every answer on record with its question and answer ids, checked against ${config.id}.`
+              : 'Every answer on record with its question and answer ids. No configuration loaded, so scoring coverage cannot be checked.'
+          }
+        >
+          <AnswersTable answers={answers} coverage={buildCoverageIndex(config)} />
+        </ProfileCollapsible>
+      )}
+
+      <ProvenanceSection provenance={provenance} />
+    </div>
+  );
+}
+
+function NegativeMarketPanel({
+  nmOutcome,
+  warnings,
+  gcid,
+  selectedProduct,
+  tabQuery,
+  config,
+  exact,
+  answers,
+  provenance,
+}: {
+  nmOutcome: ReturnType<typeof deriveNmOutcome>;
+  warnings: string[];
+  gcid: number;
+  selectedProduct: string | undefined;
+  tabQuery: { via?: string; from?: number; product?: string };
+  config: Awaited<ReturnType<typeof loadConfigFor>>['config'];
+  exact: boolean;
+  answers: RawQuestionAnswers[];
+  provenance: Provenance;
+}) {
+  const nmCoverage = buildNmCoverageIndex(config);
+
+  return (
+    <div className="space-y-6">
+      <NmOutcomeCard outcome={nmOutcome} />
+      <Warnings items={warnings} />
+
+      {nmOutcome.kind === 'assessed' && nmOutcome.products.length > 0 && selectedProduct && (
+        <section>
+          <ProfileSectionHead
+            title="How it was calculated"
+            subtitle="Stored rule results per product. Predicates come from the configuration — not recomputed here."
+          />
+          <NmRulesView
+            gcid={gcid}
+            products={nmOutcome.products}
+            selectedKey={selectedProduct}
+            query={tabQuery}
+          />
+        </section>
+      )}
+
+      {config && config.negativeMarketProducts.length > 0 && (
+        <ProfileCollapsible
+          title={`Formula — ${config.regulation} v${config.version}`}
+          subtitle={
+            exact
+              ? 'Negative Market rules from the configuration document that produced these results.'
+              : `Negative Market rules from ${config.id} — not necessarily the version that produced these results.`
+          }
+        >
+          <NmFormulaView config={config} selectedKey={selectedProduct} />
+        </ProfileCollapsible>
+      )}
+
+      {answers.length > 0 && (
+        <ProfileCollapsible
+          title="Questions and answers by id"
+          subtitle={
+            config
+              ? `Answers on record, filtered to those referenced by Negative Market in ${config.id}.`
+              : 'Answers on record. No configuration loaded, so NM coverage cannot be checked.'
+          }
+        >
+          <AnswersTable
+            answers={answers}
+            coverage={nmCoverage}
+            describeCoverage={nmCoverageLabel}
+          />
+        </ProfileCollapsible>
+      )}
+
+      <ProvenanceSection provenance={provenance} />
     </div>
   );
 }

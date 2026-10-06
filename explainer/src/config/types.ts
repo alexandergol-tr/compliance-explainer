@@ -103,11 +103,25 @@ export interface RiskLevelWeight {
   Weight: number;
 }
 
+/**
+ * A per-answer scored knockout (e.g. CFD `TradingKnowledgeAssessment`). The engine sums the
+ * statement scores and bands the total, so there is no single "blocks on this answer" set —
+ * membership matching would misrepresent it. Typed loosely on purpose; the app only needs to
+ * know the check is scored, not to reproduce the arithmetic.
+ */
+export interface ScoreAnswers {
+  Answers: { Answer: string; Score: number }[] | null;
+  QuestionScoreToBlockResultMappings?: { BlockResult: string; MinTotalScore: number }[] | null;
+}
+
 export interface QuestionAnswerCheck {
   Question: string;
   Answers: string[] | null;
+  /** Answers that suppress the block even when `Answers` matches. Empty on most checks. */
+  ExcludeAnswers?: string[] | null;
   IsRequired?: boolean;
   Condition?: string;
+  ScoreAnswers?: ScoreAnswers | null;
 }
 
 export interface BlockCheck {
@@ -136,12 +150,47 @@ export interface SuitabilityConfig {
   RiskLevelWeight: RiskLevelWeight[] | null;
 }
 
+export interface NegativeMarketRule {
+  Name: string;
+  HasAutoRelease: boolean;
+  AutoReleaseCondition?: {
+    DaysFromFtd: number;
+    AmountOfClosedTradingPosition: number;
+  } | null;
+  Checks: BlockCheck[] | null;
+  DefaultResult: string;
+  TestBlockingConditions?: unknown[];
+}
+
+export interface NegativeMarketProductConfig {
+  DefaultResult: string;
+  CoolingOffPeriodDuration?: string | null;
+  Rules: NegativeMarketRule[] | null;
+  ReassessmentTtl?: string | null;
+}
+
 export interface ConfigDocument {
   id: string;
   Regulation: string;
   Version: number;
   UpdatedOn?: string;
   Suitability: SuitabilityConfig | null;
+  CfdNegativeMarket?: NegativeMarketProductConfig | null;
+  FuturesNegativeMarket?: NegativeMarketProductConfig | null;
+  MarginNegativeMarket?: NegativeMarketProductConfig | null;
+  CryptoNegativeMarket?: NegativeMarketProductConfig | null;
+  ExperimentalCryptoNegativeMarket?: NegativeMarketProductConfig | null;
+  ErsNegativeMarket?: NegativeMarketProductConfig | null;
+  EtfNegativeMarket?: NegativeMarketProductConfig | null;
+}
+
+/** Maps a stored `productNegativeMarkets` key to its config block and display label. */
+export interface LoadedNegativeMarketProduct {
+  storedKey: string;
+  configKey: string;
+  label: string;
+  shortLabel: string;
+  config: NegativeMarketProductConfig;
 }
 
 /** What the app actually needs, once a document has been read. */
@@ -162,4 +211,6 @@ export interface LoadedConfig {
   scoreMappings: Record<string, number>;
   blockChecks: BlockCheck[];
   blockDefaultResult: string | null;
+  /** NM products defined on this configuration document. Empty when the regulation has none. */
+  negativeMarketProducts: LoadedNegativeMarketProduct[];
 }

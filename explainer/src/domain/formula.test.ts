@@ -130,4 +130,17 @@ describe('deriveFormula', () => {
     expect(mas).not.toBeNull();
     expect(deriveFormula(mas!)).toBeNull();
   });
+
+  it('CySEC-26 scores Q8 903 as High and lifts Investments off Low', async () => {
+    const config = await loadConfig('CySEC-26');
+    expect(config, 'CySEC-26 is missing from config-prod/').not.toBeNull();
+    const answers =
+      config!.factors
+        .find((f) => f.Name === 'A')
+        ?.Components?.find((c) => c.Name === '5')
+        ?.QuestionAnswers?.find((q) => q.Question === 'TradingPurpose')?.Answers ?? [];
+    const byName = Object.fromEntries(answers.map((a) => [a.Answer, a.RiskLevel]));
+    expect(byName.PurposeCryptoTradingAndOrConversion).toBe('High');
+    expect(byName.PurposeInvestments).toBe('Medium');
+  });
 });

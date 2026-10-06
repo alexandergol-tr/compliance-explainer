@@ -55,6 +55,7 @@ function config(factors: ConfigFactor[]): LoadedConfig {
     scoreMappings: {},
     blockChecks: [],
     blockDefaultResult: null,
+    negativeMarketProducts: [],
   };
 }
 

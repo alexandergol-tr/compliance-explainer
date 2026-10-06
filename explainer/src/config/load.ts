@@ -13,7 +13,8 @@
 
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { ConfigDocument, LoadedConfig } from './types';
+import type { ConfigDocument, LoadedConfig, NegativeMarketRule } from './types';
+import { negativeMarketProductsFromDocument } from './nm';
 
 /** Relative to the app root, which is where Next runs. */
 const CONFIG_DIR = join(process.cwd(), '..', 'config-prod');
@@ -43,6 +44,7 @@ function toLoaded(doc: ConfigDocument): LoadedConfig {
     scoreMappings,
     blockChecks: suitability?.SuitabilityBlock?.Checks ?? [],
     blockDefaultResult: suitability?.SuitabilityBlock?.DefaultResult ?? null,
+    negativeMarketProducts: negativeMarketProductsFromDocument(doc),
   };
 }
 

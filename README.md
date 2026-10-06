@@ -9,8 +9,9 @@ Internal eToro repo for **copy suitability** and **Negative Market** checkers: r
 | Suitability workbook | [eToro-suitability-test-calculator.xlsx](eToro-suitability-test-calculator.xlsx) — `build_workbook.py` / `verify_workbook.py` |
 | NM workbook | [eToro-negative-market-calculator.xlsx](eToro-negative-market-calculator.xlsx) — `build_nm_workbook.py` / `verify_nm_workbook.py` |
 | NM formulas | [nm-formulas.md](nm-formulas.md) |
-| Explainer app | [explainer/](explainer/README.md) — suitability spike; NM UI not built yet |
+| Explainer app | [explainer/](explainer/README.md) — suitability + NM tabs; AT placeholder |
 | Live configs | [config-prod/](config-prod/) |
+| Product research sources | [research-sources/](research-sources/README.md) — ST / NM / AT spreadsheets + AT scoring doc |
 | App build brief | [app-handoff/HANDOFF.md](app-handoff/HANDOFF.md) |
 
 Private. Owner: [alexandergol-tr](https://github.com/alexandergol-tr). Extracted from `etoro-assets/rev-eng/suitability-test`.

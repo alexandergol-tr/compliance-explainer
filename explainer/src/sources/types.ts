@@ -22,7 +22,40 @@ export interface RawProfile {
   lastAnswerOccurredAt?: string | null;
   suitability?: RawSuitability | null;
   questionsAnswers?: RawQuestionAnswers[] | null;
+  productNegativeMarkets?: RawProductNegativeMarkets | null;
+  productAppropriateness?: Record<string, unknown> | null;
 }
+
+export type BlockResultName = 'Blocked' | 'NotBlocked' | 'Warning' | string;
+
+export interface RawNmRuleAttempt {
+  attemptsTaken?: number;
+  lastAttemptOccurredAt?: string | null;
+  nextAttemptStartDate?: string | null;
+  question?: string | null;
+}
+
+export interface RawNmRuleResult {
+  rule?: string | null;
+  result?: BlockResultName | null;
+  checkResult?: BlockResultName | null;
+  attempts?: RawNmRuleAttempt[] | null;
+}
+
+export interface RawNmProductResult {
+  result?: BlockResultName | null;
+  assessmentExpired?: boolean | null;
+  coolingOffPeriodEndDate?: string | null;
+  recalculatedOn?: string | null;
+  recalculationReason?: number | string | null;
+  configurationVersion?: number | null;
+  revolvingDoorQuestions?: (number | string)[] | null;
+  ruleResults?: RawNmRuleResult[] | null;
+  isAllQuestionsAnswered?: boolean | null;
+}
+
+/** Keys are product short names: `Cfd`, `Futures`, `Etf`, … */
+export type RawProductNegativeMarkets = Record<string, RawNmProductResult | undefined>;
 
 export interface RawSuitability {
   suitabilityBlock?: number | string | null;

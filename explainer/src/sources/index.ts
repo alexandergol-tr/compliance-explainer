@@ -69,4 +69,5 @@ export function sourceFor(id: number): ProfileSource {
 }
 
 export { CosmosProfileSource, DatabricksIdentitySource, FixtureSource, KycAnalyzerSource };
+export { TEST_USERS, type TestUser } from './test-users';
 export * from './types';
